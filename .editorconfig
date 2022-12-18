@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0006: Metadata file 'C:\Users\BULLET\source\repos\AHY.AdvertisementApp\AHY.AdvertisementApp.DataAccess\obj\Debug\net5.0\ref\AHY.AdvertisementApp.DataAccess.dll' could not be found
+dotnet_diagnostic.CS0006.severity = error
