@@ -19,18 +19,32 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container px-5">
-            <a class="navbar-brand" href="#page-top">AHY Bilişim</a>
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home">AHY Bilişim</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#!">Kayıt Ol</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Giriş Yap</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-action="HumanResource" asp-controller="Home">İnsan Kaynakları</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-action="SignUp" asp-controller="Account">Kayıt Ol</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-action="SignIn" asp-controller="Account">Giriş Yap</a></li>
+                    }
+                    @if (User.IsInRole("Member"))
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-action="HumanResource" asp-controller="Home">İnsan Kaynakları</a></li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Advertisement">İş İlanları</a></li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-action="LogOut" asp-controller="Account">Çıkış Yap</a></li>
+                    }
                 </ul>
             </div>
         </div>
     </nav>
-    
+
     @RenderBody()
     <!-- Footer-->
     <footer class="py-5 bg-black">
@@ -40,5 +54,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    @RenderSection("script",false)
 </body>
 </html>

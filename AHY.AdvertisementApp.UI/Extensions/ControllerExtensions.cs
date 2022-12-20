@@ -26,6 +26,15 @@ namespace AHY.AdvertisementApp.UI.Extensions
         {
             if (response.ResponseType == ResponseType.NotFound)
                 return controller.NotFound();
+
+            //if(response.ResponseType == ResponseType.ValidationError)
+            //{
+            //    foreach(var item in response.ValidationErrors)
+            //    {
+            //        controller.ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            //    }
+            //    controller.View(response.Data);
+            //}
             return controller.View(response.Data);
         }
 

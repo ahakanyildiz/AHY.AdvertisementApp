@@ -1,0 +1,30 @@
+﻿@model AppUserLoginDto
+@{
+    ViewData["Title"] = "SignIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="SignIn" method="post" class="p-4 w-75 mx-auto">
+    <div class="mt-3">
+        <label>Kullanıcı Adı:</label>
+        <input class="form-control" asp-for="@Model.Username" />
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Şifre:</label>
+        <input type="password" class="form-control" asp-for="@Model.Password" />
+    </div>
+
+    <div class="form-check mt-3">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" asp-for="@Model.RememberMe">
+        <label class="form-check-label" for="flexCheckDefault">
+            Beni Hatırla
+        </label>
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary btn-sm text-end">Giriş Yap</button>
+    </div>
+    <div class="text-danger" asp-validation-summary="All">
+    </div>
+</form>

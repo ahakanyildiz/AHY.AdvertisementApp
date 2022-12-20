@@ -1,0 +1,51 @@
+﻿@model UserCreateModel
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-4">
+    <form asp-action="SignUp" method="post" class="p-4 w-75 mx-auto">
+        <div>
+            <label>Ad:</label>
+            <input class="form-control" asp-for="@Model.Firstname" />
+        </div>
+
+        <div>
+            <label class="form-label">Soyad:</label>
+            <input class="form-control" asp-for="@Model.Surname" />
+        </div>
+
+        <div>
+            <label class="form-label">Cinsiyet:</label>
+            <select class="form-select" asp-items="@Model.Genders" asp-for="@Model.GenderId">
+                <option value="0">Bir cinsiyet seçiniz.</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="form-label">Kullanıcı Adı:</label>
+            <input class="form-control" asp-for="@Model.Username" />
+        </div>
+
+        <div>
+            <label class="form-label">Telefon No:</label>
+            <input class="form-control" asp-for="@Model.PhoneNumber" />
+        </div>
+
+        <div>
+            <label class="form-label">Şifre:</label>
+            <input type="password" class="form-control" asp-for="@Model.Password" />
+        </div>
+
+        <div>
+            <label class="form-label">Şifreyi Onayla:</label>
+            <input type="password" class="form-control" asp-for="@Model.ConfirmPassword" />
+        </div>
+        <div class="mt-3">
+            <button class="btn btn-primary btn-sm text-end">Kayıt Ol</button>
+        </div>
+        <div class="text-danger" asp-validation-summary="All">
+        </div>
+    </form>
+</div>

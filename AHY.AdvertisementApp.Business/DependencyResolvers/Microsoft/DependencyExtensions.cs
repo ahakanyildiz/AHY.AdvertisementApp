@@ -3,13 +3,13 @@ using AHY.AdvertisementApp.Business.Concrete;
 using AHY.AdvertisementApp.Business.Mappings.AutoMapper;
 using AHY.AdvertisementApp.Business.Services;
 using AHY.AdvertisementApp.Business.ValidationRules.Advertisement;
+using AHY.AdvertisementApp.Business.ValidationRules.AdvertisementAppUser;
 using AHY.AdvertisementApp.Business.ValidationRules.AppUser;
 using AHY.AdvertisementApp.Business.ValidationRules.Gender;
 using AHY.AdvertisementApp.Business.ValidationRules.ProvidedService;
 using AHY.AdvertisementApp.DataAccess.Contexts;
 using AHY.AdvertisementApp.DataAccess.UnitOfWork;
 using AHY.AdvertisementApp.Dtos;
-using AutoMapper;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,16 +28,16 @@ namespace AHY.AdvertisementApp.Business.DependencyResolvers.Microsoft
             });
 
             #region AutoMapper Injection
-            var mapperConfiguration = new MapperConfiguration(opt =>
-                {
-                    opt.AddProfile(new ProvidedServiceProfile());
-                    opt.AddProfile(new AdvertisementProfile());
-                    opt.AddProfile(new AppUserProfile());
-                    opt.AddProfile(new GenderProfile());
-                });
+            //var mapperConfiguration = new MapperConfiguration(opt =>
+            //    {
+            //        opt.AddProfile(new ProvidedServiceProfile());
+            //        opt.AddProfile(new AdvertisementProfile());
+            //        opt.AddProfile(new AppUserProfile());
+            //        opt.AddProfile(new GenderProfile());
+            //    });
 
-            var mapper = mapperConfiguration.CreateMapper();
-            services.AddSingleton(mapper);
+            //var mapper = mapperConfiguration.CreateMapper();
+            //services.AddSingleton(mapper);
             #endregion
 
             services.AddScoped<IUow, Uow>();
@@ -51,13 +51,16 @@ namespace AHY.AdvertisementApp.Business.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<AppUserUpdateDto>, AppUserUpdateDtoValidator>();
             services.AddTransient<IValidator<GenderCreateDto>, GenderCreateDtoValidator>();
             services.AddTransient<IValidator<GenderUpdateDto>, GenderUpdateDtoValidator>();
+            services.AddTransient<IValidator<AppUserLoginDto>,AppUserLoginDtoValidator>();     
+            services.AddTransient<IValidator<AdvertisementAppUserCreateDto>, AdvertisementAppUserCreateDtoValidator>();
             #endregion
 
-            #region Service Injection
+            #region Manager Injection
             services.AddScoped<IProvidedServiceService, ProvidedServiceManager>();
             services.AddScoped<IAdvertisementService, AdvertisementManager>();
             services.AddScoped<IAppUserService, AppUserManager>();
             services.AddScoped<IGenderService, GenderManager>();
+            services.AddScoped<IAdvertisementAppUserService, AdvertisementAppUserManager>(); 
             #endregion                     
         }
     }

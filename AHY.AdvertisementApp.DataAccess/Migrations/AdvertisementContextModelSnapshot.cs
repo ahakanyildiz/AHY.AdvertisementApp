@@ -123,6 +123,18 @@ namespace AHY.AdvertisementApp.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Definition = "Member"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Definition = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("AHY.AdvertisementApp.Entities.AppUser", b =>

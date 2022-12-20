@@ -23,6 +23,6 @@ namespace AHY.AdvertisementApp.Common.Result.Concrete
     {
         Success,
         ValidationError,
-        NotFound
+        NotFound,
     }
 }
