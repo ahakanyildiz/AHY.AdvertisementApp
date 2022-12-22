@@ -1,10 +1,6 @@
 ﻿using AHY.AdvertisementApp.Business.Mappings.AutoMapper;
 using AutoMapper;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AHY.AdvertisementApp.Business.Helpers
 {
@@ -14,12 +10,14 @@ namespace AHY.AdvertisementApp.Business.Helpers
         {
             return new List<Profile>()
             {
-              new ProvidedServiceProfile(),
+                new ProvidedServiceProfile(),
                 new AdvertisementProfile(),
                 new AppUserProfile(),
                 new GenderProfile(),
                 new AppRoleProfile(),
-                new AdvertisementAppUser()
+                new AdvertisementAppUserProfile(),
+                new AdvertisementAppUserStatusProfile(),
+                new MilitaryStatusProfile()
              };
         }
     }

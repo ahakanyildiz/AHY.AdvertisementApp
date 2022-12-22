@@ -52,11 +52,10 @@ namespace AHY.AdvertisementApp.DataAccess.Concrete
             return !asNoTracking ? await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(filter) : await _context.Set<T>().SingleOrDefaultAsync(filter);
         }
 
-        public IQueryable GetQuery()
+        public IQueryable<T> GetQuery()
         {
             return _context.Set<T>().AsQueryable();
         }
-
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);

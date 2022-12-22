@@ -49,6 +49,7 @@
 
 @section script{
     <script>
+        setInputVisibility(); // Sayfa yüklendiğinde ilk başta bir kez olsun çalışsın.
         function setInputVisibility() {
             var selectElement = document.getElementById("MilitaryStatusId");
             var militaryStatusId = selectElement.value;

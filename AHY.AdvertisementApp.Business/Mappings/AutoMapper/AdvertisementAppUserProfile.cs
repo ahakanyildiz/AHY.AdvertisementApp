@@ -1,13 +1,16 @@
 ﻿using AHY.AdvertisementApp.Dtos;
+using AHY.AdvertisementApp.Entities;
 using AutoMapper;
 
 namespace AHY.AdvertisementApp.Business.Mappings.AutoMapper
 {
-    public class AdvertisementAppUser : Profile
+    public class AdvertisementAppUserProfile : Profile
     {
-        public AdvertisementAppUser()
+        public AdvertisementAppUserProfile()
         {
             CreateMap<AdvertisementAppUserCreateDto, AdvertisementAppUser>().ReverseMap();
+            CreateMap<AdvertisementAppUserListDto, AdvertisementAppUser>().ReverseMap();
+
         }
     }
 }

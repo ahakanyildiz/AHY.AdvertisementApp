@@ -1,6 +1,6 @@
 ﻿using AHY.AdvertisementApp.Dtos.Abstract;
 
-namespace AHY.AdvertisementApp.Dtos.Concrete.MilitaryStatusDtos
+namespace AHY.AdvertisementApp.Dtos
 {
     public class MilitaryStatusListDto : IDto
     {

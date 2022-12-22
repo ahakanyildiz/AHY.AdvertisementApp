@@ -1,5 +1,6 @@
 ﻿using AHY.AdvertisementApp.Business.Abstract;
 using AHY.AdvertisementApp.Business.Extensions;
+using AHY.AdvertisementApp.Common.Enums;
 using AHY.AdvertisementApp.Common.Result.Abstract;
 using AHY.AdvertisementApp.Common.Result.Concrete;
 using AHY.AdvertisementApp.DataAccess.UnitOfWork;
@@ -9,6 +10,8 @@ using AutoMapper;
 using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AHY.AdvertisementApp.Business.Concrete
 {
@@ -45,10 +48,27 @@ namespace AHY.AdvertisementApp.Business.Concrete
                     ErrorMessage="Bu ilana daha önce başvurdunuz"
                 } };
 
-                return new Response<AdvertisementAppUserCreateDto>(dto,errors);
+                return new Response<AdvertisementAppUserCreateDto>(dto, errors);
 
             }
             return new Response<AdvertisementAppUserCreateDto>(dto, result.ConvertToCustomValidationError());
+        }
+
+        public async Task<List<AdvertisementAppUserListDto>> GetList(AdvertisementAppUserStatusType type)
+        {
+            var query = _uow.GetRepository<AdvertisementAppUser>().GetQuery();
+            var list = await query.Include(x => x.Advertisement).Include(x => x.AdvertisementAppUserStatus).Include(x => x.MilitaryStatus).Include(x => x.AppUser).ThenInclude(x => x.Gender).Where(x => x.AdvertisementAppUserStatusId == (int)type).ToListAsync();
+
+            return _mapper.Map<List<AdvertisementAppUserListDto>>(list);
+        }
+
+        public async Task SetStatusAsync(int advertisementAppUserId, AdvertisementAppUserStatusType type)
+        {
+            var unChanged = await _uow.GetRepository<AdvertisementAppUser>().FindAsync(advertisementAppUserId);
+            var changed = await _uow.GetRepository<AdvertisementAppUser>().GetByFilterAsync(x => x.Id == advertisementAppUserId);
+            changed.AdvertisementAppUserStatusId = (int)type;
+            _uow.GetRepository<AdvertisementAppUser>().Update(changed, unChanged);
+            await _uow.SaveChangesAsync();
         }
     }
 }

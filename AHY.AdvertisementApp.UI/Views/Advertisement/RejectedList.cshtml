@@ -1,0 +1,57 @@
+﻿@model List<AdvertisementAppUserListDto>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    @if (Model?.Count > 0)
+    {
+        <div class="text-end my-3 p-1">
+            <a asp-action="List" asp-controller="Advertisement">Yeni Başvurular</a>
+            <a asp-action="ApprovedList" asp-controller="Advertisement">Mülakata Çağırılan Başvurular</a>
+        </div>
+
+        <table class="table table-sm table-hover table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Başvurulan İlan</th>
+                    <th>Başvuran Kişi</th>
+                    <th>Başvuranın Cinsiyeti</th>
+                    <th>Başvurunun Durumu</th>
+                    <th>Askerlik Durumu</th>
+                    <th>Tecil Bitiş Tarihi</th>
+                    <th>İş Deneyimi</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Advertisement.Title</td>
+                        <td>@item.AppUser.Firstname @item.AppUser.Surname</td>
+                        <td>@item.AppUser.Gender.Definition</td>
+                        <td>@item.AdvertisementAppUserStatus.Definition</td>
+                        <td>@item.MilitaryStatus.Definition</td>
+                        <td>@(item.EndDate==null? "Muaf ya da yapmış" :item.EndDate?.ToString("dddd,dd MMMM yyyy"))</td>
+                        <td>@item.WorkExperience</td>
+                        <td>
+                            <a asp-action="SetStatus" asp-controller="Advertisement" asp-route-advertisementAppUserId="@item.Id" asp-route-type="@((int)(AdvertisementAppUserStatusType.Mulakat))">Mülakata Çağır</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="text-end my-3 p-1">
+            <a asp-action="List" asp-controller="Advertisement">Yeni Başvurular</a>
+            <a asp-action="ApprovedList" asp-controller="Advertisement">Mülakata Çağırılan Başvurular</a>
+        </div>
+        <div class="mt-3 text-center lead">Herhangi bir başvuru bulunmamaktadır.</div>
+    }
+</div>
+
+

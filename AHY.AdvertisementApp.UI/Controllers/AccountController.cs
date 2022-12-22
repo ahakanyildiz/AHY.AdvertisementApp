@@ -88,6 +88,7 @@ namespace AHY.AdvertisementApp.UI.Controllers
                     foreach (var item in roleResult.Data)
                     {
                         claims.Add(new Claim(ClaimTypes.Role, item.Definition));
+                        claims.Add(new Claim(ClaimTypes.Name, result.Data.Firstname));
                     }
 
                 }
